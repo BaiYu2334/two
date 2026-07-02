@@ -1,0 +1,1758 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐱 猫咪星球 - 可爱猫咪的家</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Fredoka:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --mondrian-red: #E63946;
+            --mondrian-blue: #1D3557;
+            --mondrian-yellow: #F4D03F;
+            --mondrian-black: #0D0D0D;
+            --mondrian-white: #FFFFFF;
+            --mondrian-gray: #A8A8A8;
+            --pink-100: #FFF0F5;
+            --pink-200: #FFE4EC;
+            --pink-300: #FFB6C1;
+            --pink-400: #FF69B4;
+            --pink-500: #FF1493;
+            --purple-100: #F3E5F5;
+            --purple-200: #E1BEE7;
+            --purple-300: #CE93D8;
+            --purple-400: #BA68C8;
+            --blue-100: #E3F2FD;
+            --blue-200: #BBDEFB;
+            --mint-100: #E8F5E9;
+            --mint-200: #C8E6C9;
+            --yellow-100: #FFF9C4;
+            --yellow-200: #FFF59D;
+            --orange-100: #FFF3E0;
+            --orange-200: #FFE0B2;
+            --peach-100: #FFF5F7;
+            --text-dark: #4A148C;
+            --text-light: #880E4F;
+            --white: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Nunito', 'Fredoka', sans-serif;
+            background: var(--mondrian-white);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        @keyframes backgroundShift {
+            0%, 100% {
+                background-position: 0% 0%, 100% 0%, 50% 100%, 80% 90%, 20% 70%, 70% 40%, 0% 0%;
+            }
+            25% {
+                background-position: 10% 10%, 80% 5%, 45% 85%, 75% 95%, 25% 65%, 65% 35%, 0% 0%;
+            }
+            50% {
+                background-position: 15% 5%, 75% 15%, 55% 75%, 85% 85%, 15% 75%, 75% 45%, 0% 0%;
+            }
+            75% {
+                background-position: 5% 15%, 85% 5%, 50% 90%, 70% 80%, 30% 60%, 60% 50%, 0% 0%;
+            }
+        }
+
+        /* Background Blobs */
+        .blob {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.35;
+            z-index: -1;
+            animation: blobFloat 15s ease-in-out infinite;
+        }
+
+        .blob-1 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(230, 57, 70, 0.4) 0%, rgba(230, 57, 70, 0) 70%);
+            top: 10%;
+            left: -5%;
+            animation-delay: 0s;
+        }
+
+        .blob-2 {
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, rgba(244, 208, 63, 0.4) 0%, rgba(244, 208, 63, 0) 70%);
+            top: 50%;
+            right: -3%;
+            animation-delay: 5s;
+        }
+
+        .blob-3 {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(29, 53, 87, 0.35) 0%, rgba(29, 53, 87, 0) 70%);
+            bottom: 5%;
+            left: 30%;
+            animation-delay: 10s;
+        }
+
+        @keyframes blobFloat {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+            33% {
+                transform: translate(30px, -20px) scale(1.1);
+            }
+            66% {
+                transform: translate(-20px, 20px) scale(0.95);
+            }
+        }
+
+        /* Floating decorations */
+        .decoration {
+            position: fixed;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.6;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-20px) rotate(5deg); }
+            50% { transform: translateY(-10px) rotate(-5deg); }
+            75% { transform: translateY(-30px) rotate(3deg); }
+        }
+
+        .star { font-size: 30px; animation-delay: 0s; }
+        .heart { font-size: 28px; animation-delay: 1s; }
+        .cloud { font-size: 40px; animation-delay: 2s; }
+        .flower { font-size: 35px; animation-delay: 0.5s; }
+        .rainbow { font-size: 45px; animation-delay: 1.5s; }
+
+        /* Header */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--mondrian-yellow);
+            backdrop-filter: blur(20px);
+            border-bottom: 6px solid var(--mondrian-black);
+            padding: 16px 32px;
+            box-shadow: 0 8px 0 var(--mondrian-black);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--text-dark);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover { transform: scale(1.05) rotate(-2deg); }
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--mondrian-yellow);
+            border-radius: 0;
+            border: 4px solid var(--mondrian-black);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 3px 3px 0 var(--mondrian-black);
+        }
+
+        nav {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-link {
+            padding: 10px 24px;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--mondrian-black);
+            text-decoration: none;
+            border-radius: 0;
+            border: 4px solid var(--mondrian-black);
+            background: var(--mondrian-white);
+            transition: all 0.3s ease;
+            position: relative;
+            box-shadow: 3px 3px 0 var(--mondrian-black);
+        }
+
+        .nav-link:hover {
+            background: var(--mondrian-yellow);
+            color: var(--mondrian-black);
+            transform: translate(-3px, -3px);
+            box-shadow: 6px 6px 0 var(--mondrian-black);
+        }
+
+        .nav-link.active {
+            background: var(--mondrian-red);
+            color: var(--mondrian-black);
+            box-shadow: 3px 3px 0 var(--mondrian-black);
+        }
+
+        /* Hero Section */
+    .hero {
+        position: relative;
+        z-index: 1;
+        padding: 100px 32px 80px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .hero-content {
+        position: relative;
+    }
+
+    .hero-layout {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        gap: 60px;
+        align-items: center;
+    }
+
+    .hero-text {
+        text-align: left;
+    }
+
+    /* Mondrian Style Hero */
+    .mondrian-hero {
+        background-image: url('images/f101753cf27858414da21c929abd5c2c.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        padding: 80px 32px 60px;
+        position: relative;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+    }
+
+    .mondrian-hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(255, 255, 255, 0.85);
+        z-index: 0;
+    }
+
+    .mondrian-hero .hero-content {
+        position: relative;
+        z-index: 1;
+    }
+
+    .mondrian-text {
+        text-align: left;
+        padding: 40px;
+        background: white;
+        border: 6px solid var(--mondrian-black);
+        position: relative;
+    }
+
+    .mondrian-text::before {
+        content: '';
+        position: absolute;
+        top: -6px;
+        left: -6px;
+        width: 60px;
+        height: 60px;
+        background: var(--mondrian-red);
+        border: 6px solid var(--mondrian-black);
+    }
+
+    .mondrian-text::after {
+        content: '';
+        position: absolute;
+        bottom: -6px;
+        right: -6px;
+        width: 80px;
+        height: 80px;
+        background: var(--mondrian-blue);
+        border: 6px solid var(--mondrian-black);
+    }
+
+    .mondrian-tagline {
+        display: inline-block;
+        padding: 12px 28px;
+        background: var(--mondrian-yellow);
+        color: var(--mondrian-black);
+        font-weight: 800;
+        font-size: 14px;
+        margin-bottom: 28px;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        font-family: 'Nunito', sans-serif;
+        border: 4px solid var(--mondrian-black);
+    }
+
+    .mondrian-title {
+        font-family: 'Playfair Display', serif;
+        font-size: clamp(56px, 9vw, 96px);
+        font-weight: 800;
+        margin-bottom: 20px;
+        line-height: 1;
+        letter-spacing: -2px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .title-line {
+        display: inline-block;
+        font-weight: 900;
+    }
+
+    .title-line-1 {
+        font-size: clamp(48px, 7vw, 72px);
+        color: var(--mondrian-red);
+        background: var(--mondrian-yellow);
+        padding: 4px 16px;
+        border: 4px solid var(--mondrian-black);
+        align-self: flex-start;
+        transform: rotate(-2deg);
+        font-family: 'Poppins', sans-serif;
+        animation: float-shake-1 2s ease-in-out infinite;
+        animation-delay: 0s;
+    }
+
+    .title-line-2 {
+        font-size: clamp(64px, 9vw, 96px);
+        color: var(--mondrian-black);
+        background: var(--mondrian-white);
+        padding: 4px 20px;
+        border: 4px solid var(--mondrian-black);
+        align-self: center;
+        transform: rotate(1deg);
+        animation: float-shake-2 2s ease-in-out infinite;
+        animation-delay: 0.3s;
+    }
+
+    .title-line-3 {
+        font-size: clamp(40px, 6vw, 64px);
+        color: var(--mondrian-white);
+        background: var(--mondrian-blue);
+        padding: 4px 16px;
+        border: 4px solid var(--mondrian-black);
+        align-self: flex-end;
+        transform: rotate(-1deg);
+        font-family: 'Poppins', sans-serif;
+        text-transform: uppercase;
+        animation: float-shake-3 2s ease-in-out infinite;
+        animation-delay: 0.6s;
+    }
+
+    @keyframes float-shake-1 {
+        0%, 100% {
+            transform: translateY(0px) rotate(-2deg);
+        }
+        25% {
+            transform: translateY(-5px) rotate(-1.5deg);
+        }
+        50% {
+            transform: translateY(0px) rotate(-2deg);
+        }
+        75% {
+            transform: translateY(5px) rotate(-2.5deg);
+        }
+    }
+
+    @keyframes float-shake-2 {
+        0%, 100% {
+            transform: translateY(0px) rotate(1deg);
+        }
+        25% {
+            transform: translateY(-5px) rotate(1.5deg);
+        }
+        50% {
+            transform: translateY(0px) rotate(1deg);
+        }
+        75% {
+            transform: translateY(5px) rotate(0.5deg);
+        }
+    }
+
+    @keyframes float-shake-3 {
+        0%, 100% {
+            transform: translateY(0px) rotate(-1deg);
+        }
+        25% {
+            transform: translateY(-5px) rotate(-0.5deg);
+        }
+        50% {
+            transform: translateY(0px) rotate(-1deg);
+        }
+        75% {
+            transform: translateY(5px) rotate(-1.5deg);
+        }
+    }
+
+    .mondrian-subtitle {
+        font-family: 'Nunito', sans-serif;
+        font-size: clamp(20px, 3vw, 28px);
+        color: var(--mondrian-black);
+        font-weight: 700;
+        margin-bottom: 20px;
+        line-height: 1.3;
+        padding-left: 20px;
+        border-left: 6px solid var(--mondrian-red);
+    }
+
+    .mondrian-desc {
+        font-size: clamp(16px, 2vw, 20px);
+        color: var(--mondrian-black);
+        font-weight: 500;
+        margin-bottom: 40px;
+        line-height: 1.8;
+        background: var(--mondrian-yellow);
+        padding: 16px 20px;
+        border: 4px solid var(--mondrian-black);
+    }
+
+    .mondrian-buttons {
+        display: flex;
+        gap: 20px;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .btn-mondrian-red {
+        padding: 18px 40px;
+        font-size: 18px;
+        font-weight: 800;
+        background: var(--mondrian-red);
+        color: white;
+        border: 5px solid var(--mondrian-black);
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+
+    .btn-mondrian-red:hover {
+        transform: translate(-4px, -4px);
+        box-shadow: 8px 8px 0 var(--mondrian-black);
+    }
+
+    .btn-mondrian-blue {
+        padding: 18px 40px;
+        font-size: 18px;
+        font-weight: 800;
+        background: var(--mondrian-blue);
+        color: white;
+        border: 5px solid var(--mondrian-black);
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+
+    .btn-mondrian-blue:hover {
+        transform: translate(-4px, -4px);
+        box-shadow: 8px 8px 0 var(--mondrian-black);
+    }
+
+    /* Mondrian Gallery */
+    .mondrian-gallery {
+        position: relative;
+        height: 520px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+    }
+
+    .gallery-item {
+        position: absolute;
+        transition: all 0.4s ease;
+        cursor: pointer;
+    }
+
+    .gallery-item:hover {
+        z-index: 10;
+        transform: scale(1.05) rotate(2deg);
+    }
+
+    .gallery-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border: 5px solid var(--mondrian-black);
+        display: block;
+    }
+
+    .gallery-item-1 {
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%) rotate(-6deg);
+        width: 220px;
+        height: 290px;
+        z-index: 3;
+        box-shadow: 14px 14px 0 var(--mondrian-red);
+    }
+
+    .gallery-item-2 {
+        top: 310px;
+        left: 10px;
+        transform: rotate(5deg);
+        width: 120px;
+        height: 160px;
+        z-index: 2;
+        box-shadow: 8px 8px 0 var(--mondrian-blue);
+    }
+
+    .gallery-item-3 {
+        top: 300px;
+        right: 10px;
+        transform: rotate(-4deg);
+        width: 150px;
+        height: 200px;
+        z-index: 1;
+        box-shadow: 10px 10px 0 var(--mondrian-yellow);
+    }
+
+        .hero-emoji {
+            font-size: 50px;
+            display: inline-block;
+            animation: wiggle 1s ease-in-out infinite;
+            margin: 0 8px;
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-8deg); }
+            50% { transform: rotate(8deg); }
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .btn {
+            padding: 16px 36px;
+            font-size: 18px;
+            font-weight: 700;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--pink-400), var(--purple-400));
+            color: white;
+            box-shadow: 0 8px 25px rgba(255, 105, 180, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 12px 35px rgba(255, 105, 180, 0.5);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--text-dark);
+            border: 3px solid var(--pink-300);
+            box-shadow: 0 6px 20px rgba(255, 105, 180, 0.2);
+        }
+
+        .btn-secondary:hover {
+            background: var(--pink-100);
+            transform: translateY(-5px);
+        }
+
+        /* Hero Cats */
+        .hero-cats-container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            position: relative;
+            gap: -30px;
+            flex-wrap: wrap;
+        }
+
+        .hero-cats-container::before {
+            content: '';
+            position: absolute;
+            width: 120%;
+            height: 120%;
+            background: radial-gradient(circle, rgba(255, 105, 180, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            transform: scale(1.3);
+            z-index: -1;
+        }
+
+        .hero-cat-wrapper {
+            position: relative;
+        }
+
+        .hero-cat {
+            border-radius: 35px;
+            box-shadow: 0 18px 45px rgba(255, 105, 180, 0.35), 0 8px 25px rgba(186, 104, 200, 0.25);
+            border: 7px solid white;
+            transition: all 0.4s ease;
+        }
+
+        .hero-cat-orange {
+            width: min(320px, 50vw);
+            animation: cat-bounce 2.5s ease-in-out infinite;
+            z-index: 2;
+        }
+
+        .hero-cat-black {
+            width: min(220px, 35vw);
+            animation: cat-bounce 2.5s ease-in-out infinite;
+            animation-delay: 0.5s;
+            margin-left: -50px;
+            z-index: 1;
+        }
+
+        @keyframes cat-bounce {
+            0%, 100% { transform: translateY(0) rotate(-1deg); }
+            50% { transform: translateY(-12px) rotate(1deg); }
+        }
+
+        .hero-cat:hover {
+            transform: scale(1.08) rotate(2deg) !important;
+            box-shadow: 0 24px 60px rgba(255, 105, 180, 0.5);
+        }
+
+        /* Cards Section */
+        .section {
+            position: relative;
+            z-index: 1;
+            padding: 80px 32px;
+            max-width: 1200px;
+            margin: 0 auto;
+            background-image: url('images/f101753cf27858414da21c929abd5c2c.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.92);
+            z-index: -1;
+        }
+
+        .section-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 900;
+            text-align: center;
+            color: var(--mondrian-black);
+            margin-bottom: 16px;
+            display: inline-block;
+            background: var(--mondrian-yellow);
+            padding: 8px 24px;
+            border: 5px solid var(--mondrian-black);
+            transform: rotate(-1deg);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--mondrian-black);
+            font-size: 18px;
+            margin-bottom: 48px;
+            font-weight: 600;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 0;
+            padding: 32px;
+            text-align: center;
+            box-shadow: 8px 8px 0 var(--mondrian-black);
+            border: 5px solid var(--mondrian-black);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:nth-child(1) {
+            background: linear-gradient(135deg, var(--mondrian-white) 0%, var(--mondrian-white) 70%, var(--mondrian-yellow) 70%, var(--mondrian-yellow) 100%);
+        }
+
+        .card:nth-child(2) {
+            background: linear-gradient(135deg, var(--mondrian-white) 0%, var(--mondrian-white) 70%, var(--mondrian-red) 70%, var(--mondrian-red) 100%);
+        }
+
+        .card:nth-child(3) {
+            background: linear-gradient(135deg, var(--mondrian-white) 0%, var(--mondrian-white) 70%, var(--mondrian-blue) 70%, var(--mondrian-blue) 100%);
+        }
+
+        .card:hover {
+            transform: translate(-8px, -8px);
+            box-shadow: 16px 16px 0 var(--mondrian-black);
+        }
+
+        .card-icon {
+            width: 90px;
+            height: 90px;
+            background: var(--mondrian-white);
+            border-radius: 0;
+            border: 4px solid var(--mondrian-black);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            margin: 0 auto 24px;
+            box-shadow: 4px 4px 0 var(--mondrian-black);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover .card-icon { transform: translate(-4px, -4px) scale(1.1); }
+
+        .card-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--mondrian-black);
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .card-text {
+            color: var(--mondrian-black);
+            font-size: 16px;
+            line-height: 1.7;
+            font-weight: 500;
+        }
+
+        /* Gallery Section */
+        .gallery-section {
+            background: var(--mondrian-white);
+            margin: 0;
+            padding: 80px 32px;
+            position: relative;
+            z-index: 1;
+            background-image: url('images/f101753cf27858414da21c929abd5c2c.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        .gallery-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.85);
+            z-index: -1;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 32px;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .gallery-item {
+            aspect-ratio: 1;
+            border-radius: 0;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            box-shadow: 6px 6px 0 var(--mondrian-black);
+            border: 4px solid var(--mondrian-black);
+            transition: all 0.4s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translate(-6px, -6px);
+            box-shadow: 12px 12px 0 var(--mondrian-black);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(244, 208, 63, 0.9);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .gallery-item:hover .gallery-overlay { opacity: 1; }
+
+        .gallery-text {
+            color: var(--mondrian-black);
+            font-weight: 900;
+            font-size: 20px;
+            font-family: 'Poppins', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Features List */
+        .features-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .feature-item {
+            background: white;
+            padding: 24px 32px;
+            border-radius: 0;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 6px 6px 0 var(--mondrian-black);
+            border: 4px solid var(--mondrian-black);
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:nth-child(1) { background: var(--mondrian-yellow); }
+        .feature-item:nth-child(2) { background: var(--mondrian-white); }
+        .feature-item:nth-child(3) { background: var(--mondrian-red); }
+        .feature-item:nth-child(4) { background: var(--mondrian-blue); }
+
+        .feature-item:hover {
+            transform: translate(-6px, -6px);
+            box-shadow: 12px 12px 0 var(--mondrian-black);
+        }
+
+        .feature-emoji {
+            font-size: 40px;
+            min-width: 60px;
+            background: var(--mondrian-white);
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid var(--mondrian-black);
+            box-shadow: 3px 3px 0 var(--mondrian-black);
+        }
+
+        .feature-content {
+            flex: 1;
+        }
+
+        .feature-title {
+            font-size: 20px;
+            font-weight: 900;
+            color: var(--mondrian-black);
+            margin-bottom: 6px;
+            font-family: 'Poppins', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .feature-text {
+            color: var(--mondrian-black);
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background-image: url('images/f101753cf27858414da21c929abd5c2c.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            padding: 80px 32px;
+            margin: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stats-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.92);
+            z-index: -1;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 32px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .stat-item {
+            background: white;
+            padding: 32px;
+            border-radius: 0;
+            text-align: center;
+            box-shadow: 8px 8px 0 var(--mondrian-black);
+            border: 5px solid var(--mondrian-black);
+            transition: all 0.4s ease;
+        }
+
+        .stat-item:nth-child(1) { background: var(--mondrian-yellow); }
+        .stat-item:nth-child(2) { background: var(--mondrian-red); }
+        .stat-item:nth-child(3) { background: var(--mondrian-blue); }
+        .stat-item:nth-child(4) { background: var(--mondrian-white); }
+
+        .stat-item:hover { 
+            transform: translate(-8px, -8px);
+            box-shadow: 16px 16px 0 var(--mondrian-black);
+        }
+
+        .stat-number {
+            font-family: 'Poppins', sans-serif;
+            font-size: 56px;
+            font-weight: 900;
+            color: var(--mondrian-black);
+        }
+
+        .stat-label {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--mondrian-black);
+            margin-top: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Footer */
+        footer {
+            background-image: url('images/f101753cf27858414da21c929abd5c2c.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            padding: 80px 32px 40px;
+            position: relative;
+            z-index: 1;
+            border-top: 6px solid var(--mondrian-black);
+            margin-top: 0;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.95);
+            z-index: -1;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 36px;
+            font-weight: 900;
+            color: var(--mondrian-black);
+            margin-bottom: 20px;
+            display: inline-block;
+            background: var(--mondrian-yellow);
+            padding: 8px 24px;
+            border: 5px solid var(--mondrian-black);
+            transform: rotate(1deg);
+        }
+
+        .footer-text {
+            color: var(--mondrian-black);
+            font-size: 16px;
+            max-width: 500px;
+            margin: 0 auto 32px;
+            line-height: 1.7;
+            font-weight: 500;
+            background: var(--mondrian-white);
+            padding: 16px 24px;
+            border: 4px solid var(--mondrian-black);
+            box-shadow: 6px 6px 0 var(--mondrian-blue);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        .social-link {
+            width: 60px;
+            height: 60px;
+            background: var(--mondrian-white);
+            border-radius: 0;
+            border: 4px solid var(--mondrian-black);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 4px 4px 0 var(--mondrian-black);
+        }
+
+        .social-link:nth-child(1) { background: var(--mondrian-yellow); }
+        .social-link:nth-child(2) { background: var(--mondrian-red); }
+        .social-link:nth-child(3) { background: var(--mondrian-blue); }
+        .social-link:nth-child(4) { background: var(--mondrian-white); }
+
+        .social-link:hover {
+            transform: translate(-4px, -4px);
+            box-shadow: 8px 8px 0 var(--mondrian-black);
+        }
+
+        .footer-bottom {
+            padding-top: 32px;
+            border-top: 4px solid var(--mondrian-black);
+            color: var(--mondrian-black);
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .hero-layout {
+                grid-template-columns: 1fr;
+                gap: 60px;
+            }
+            .hero-cats-container {
+                order: -1;
+            }
+            .hero-text {
+                text-align: center;
+            }
+            .hero-title::after {
+                margin: 20px auto 0;
+            }
+            .cta-buttons {
+                justify-content: center;
+            }
+            .mondrian-text {
+                text-align: center;
+            }
+            .mondrian-title {
+                align-items: center;
+            }
+            .title-line-1,
+            .title-line-2,
+            .title-line-3 {
+                align-self: center !important;
+                transform: none !important;
+            }
+            .mondrian-buttons {
+                justify-content: center;
+            }
+            .mondrian-subtitle {
+                border-left: none;
+                border-top: 6px solid var(--mondrian-red);
+                padding-left: 0;
+                padding-top: 20px;
+            }
+            .mondrian-gallery {
+                height: 450px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .gallery-item {
+                position: relative;
+                top: auto !important;
+                left: auto !important;
+            }
+            .gallery-item-1 {
+                width: 160px;
+                height: 220px;
+                transform: rotate(-3deg);
+            }
+            .gallery-item-2 {
+                width: 180px;
+                height: 260px;
+                transform: rotate(2deg);
+                margin: 0 -30px;
+            }
+            .gallery-item-3 {
+                width: 160px;
+                height: 220px;
+                transform: rotate(-2deg);
+            }
+        }
+        @media (max-width: 600px) {
+            .hero-cat-orange {
+                width: min(240px, 55vw);
+            }
+            .hero-cat-black {
+                width: min(170px, 40vw);
+                margin-left: -35px;
+            }
+            .mondrian-text {
+                padding: 30px 20px;
+            }
+            .mondrian-text::before {
+                width: 40px;
+                height: 40px;
+            }
+            .mondrian-text::after {
+                width: 50px;
+                height: 50px;
+            }
+            .title-line-1 {
+                font-size: 36px;
+                padding: 2px 12px;
+            }
+            .title-line-2 {
+                font-size: 48px;
+                padding: 2px 14px;
+            }
+            .title-line-3 {
+                font-size: 32px;
+                padding: 2px 12px;
+            }
+            .mondrian-gallery {
+                height: auto;
+                flex-direction: column;
+                gap: 20px;
+            }
+            .gallery-item-1,
+            .gallery-item-2,
+            .gallery-item-3 {
+                position: relative;
+                top: auto;
+                left: auto;
+                width: 200px;
+                height: 280px;
+                transform: none;
+                margin: 0;
+            }
+        }
+        @media (max-width: 768px) {
+            header { padding: 12px 16px; }
+            .header-content { flex-direction: column; gap: 16px; }
+            nav { flex-wrap: wrap; justify-content: center; }
+            .nav-link { padding: 8px 18px; font-size: 14px; }
+            .hero { padding: 60px 16px 40px; }
+            .section { padding: 50px 16px; }
+            .card { padding: 24px; }
+            .section-title {
+                font-size: 28px;
+                padding: 6px 18px;
+            }
+            .feature-item { flex-direction: column; text-align: center; padding: 20px; }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 16px; }
+        ::-webkit-scrollbar-track { background: var(--mondrian-yellow); }
+        ::-webkit-scrollbar-thumb {
+            background: var(--mondrian-blue);
+            border-radius: 0;
+            border: 4px solid var(--mondrian-black);
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--mondrian-red);
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Music -->
+    <audio loop id="bg-music">
+        <source src="background-music.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <style>
+        .music-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--mondrian-yellow);
+            border: 4px solid var(--mondrian-black);
+            padding: 12px 20px;
+            cursor: pointer;
+            font-weight: 900;
+            font-family: 'Poppins', sans-serif;
+            box-shadow: 4px 4px 0 var(--mondrian-black);
+            transition: all 0.2s ease;
+        }
+        .music-control:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0 var(--mondrian-black);
+        }
+    </style>
+    <button class="music-control" onclick="toggleMusic()">🎵 播放音乐</button>
+    <script>
+        let isPlaying = false;
+        function toggleMusic() {
+            const audio = document.getElementById('bg-music');
+            if (isPlaying) {
+                audio.pause();
+                document.querySelector('.music-control').innerHTML = '🎵 播放音乐';
+            } else {
+                audio.play();
+                document.querySelector('.music-control').innerHTML = '🎵 暂停音乐';
+            }
+            isPlaying = !isPlaying;
+        }
+    </script>
+
+    <!-- Walking Cats -->
+    <div class="walking-cat" id="walking-cat-1">
+        <span class="cat-sprite">🐱</span>
+    </div>
+    <div class="walking-cat" id="walking-cat-2">
+        <span class="cat-sprite">😺</span>
+    </div>
+
+    <style>
+        .walking-cat {
+            position: fixed;
+            z-index: 1500;
+            font-size: 60px;
+            cursor: pointer;
+            filter: drop-shadow(4px 4px 0 var(--mondrian-black));
+            transition: transform 0.1s ease;
+        }
+        .walking-cat:hover {
+            transform: scale(1.2);
+        }
+        .cat-sprite {
+            display: inline-block;
+            animation: cat-bounce 0.3s ease infinite;
+        }
+        @keyframes cat-bounce {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-8px) rotate(5deg);
+            }
+        }
+    </style>
+
+    <script>
+        function createWalkingCat(id, startX, startY, speed, emoji) {
+            const catPosition = {
+                x: startX,
+                y: startY,
+                direction: startX < 0 ? 1 : -1,
+                speed: speed,
+                baseSize: 50 + Math.random() * 30
+            };
+
+            const catElement = document.getElementById(id);
+            catElement.style.left = catPosition.x + 'px';
+            catElement.style.top = catPosition.y + 'px';
+            catElement.style.fontSize = catPosition.baseSize + 'px';
+            catElement.querySelector('.cat-sprite').textContent = emoji;
+
+            let lastTime = Date.now();
+
+            function moveCat() {
+                const now = Date.now();
+                const delta = (now - lastTime) / 16;
+                lastTime = now;
+
+                catPosition.x += catPosition.direction * catPosition.speed * delta;
+
+                if (catPosition.x > window.innerWidth + 100) {
+                    catPosition.direction = -1;
+                    catPosition.y = Math.random() * (window.innerHeight - 200) + 100;
+                } else if (catPosition.x < -100) {
+                    catPosition.direction = 1;
+                    catPosition.y = Math.random() * (window.innerHeight - 200) + 100;
+                }
+
+                catElement.style.left = catPosition.x + 'px';
+                catElement.style.top = catPosition.y + 'px';
+                catElement.style.transform = catPosition.direction === 1 ? 'scaleX(1)' : 'scaleX(-1)';
+
+                requestAnimationFrame(moveCat);
+            }
+
+            catElement.addEventListener('click', () => {
+                catPosition.speed += 0.5;
+                catElement.style.fontSize = (catPosition.baseSize + Math.random() * 20) + 'px';
+            });
+
+            moveCat();
+        }
+
+        createWalkingCat('walking-cat-1', -100, window.innerHeight - 200, 2, '🐱');
+        createWalkingCat('walking-cat-2', window.innerWidth + 100, window.innerHeight - 350, 2.5, '😺');
+    </script>
+    <!-- Floating Decorations -->
+    <span class="decoration star" style="top: 12%; left: 5%;">🐱</span>
+    <span class="decoration heart" style="top: 20%; right: 12%;">💕</span>
+    <span class="decoration cloud" style="top: 8%; left: 35%;">🐾</span>
+    <span class="decoration flower" style="top: 30%; right: 8%;">🌸</span>
+    <span class="decoration rainbow" style="top: 18%; left: 65%;">🐱</span>
+    <span class="decoration star" style="top: 50%; left: 10%;">✨</span>
+    <span class="decoration heart" style="top: 62%; right: 18%;">🐾</span>
+    <span class="decoration flower" style="top: 68%; left: 22%;">🐱</span>
+    <span class="decoration cloud" style="top: 78%; right: 28%;">🌟</span>
+    <span class="decoration star" style="top: 88%; left: 58%;">💖</span>
+    <span class="decoration star" style="top: 40%; left: 85%;">🐾</span>
+    <span class="decoration star" style="top: 72%; left: 3%;">🌸</span>
+    
+    <!-- Background Blobs -->
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+
+    <!-- Header -->
+    <header style="border-bottom: 6px solid var(--mondrian-black); background: var(--mondrian-yellow);">
+        <div class="header-content">
+            <div class="logo" onclick="scrollToTop()" style="background: var(--mondrian-white); padding: 8px 20px; border: 5px solid var(--mondrian-black); box-shadow: 4px 4px 0 var(--mondrian-black);">
+                <div class="logo-icon">
+                    <img src="images/logo-burger-cat.jpg" alt="Logo Cat" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <span style="font-weight: 900; font-family: 'Poppins', sans-serif;">CAT PLANET</span>
+            </div>
+            <nav>
+                <a href="#home" class="nav-link active" style="background: var(--mondrian-white); border: 4px solid var(--mondrian-black); box-shadow: 3px 3px 0 var(--mondrian-black); font-weight: 700;">HOME</a>
+                <a href="#features" class="nav-link" style="background: var(--mondrian-white); border: 4px solid var(--mondrian-black); box-shadow: 3px 3px 0 var(--mondrian-black); font-weight: 700;">FEATURES</a>
+                <a href="#gallery" class="nav-link" style="background: var(--mondrian-white); border: 4px solid var(--mondrian-black); box-shadow: 3px 3px 0 var(--mondrian-black); font-weight: 700;">GALLERY</a>
+                <a href="#contact" class="nav-link" style="background: var(--mondrian-white); border: 4px solid var(--mondrian-black); box-shadow: 3px 3px 0 var(--mondrian-black); font-weight: 700;">CONTACT</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero mondrian-hero" id="home">
+        <div class="hero-content">
+            <div class="hero-layout">
+                <div class="hero-text mondrian-text">
+                    <div class="hero-tagline mondrian-tagline">ART & CATS</div>
+                    <h1 class="hero-title mondrian-title">
+                        <span class="title-line title-line-1">ネコ</span>
+                        <span class="title-line title-line-2">猫咪</span>
+                        <span class="title-line title-line-3">PLANET</span>
+                    </h1>
+                    <div class="hero-subtitle-large mondrian-subtitle">现代艺术与可爱猫咪的完美融合</div>
+                    <p class="hero-subtitle mondrian-desc">
+                        在几何色彩中遇见你的萌宠治愈系
+                    </p>
+                    <div class="cta-buttons mondrian-buttons">
+                        <a href="https://www.baidu.com" target="_blank" class="btn btn-mondrian-red" style="text-decoration: none; display: inline-block;">
+                            开始探索
+                        </a>
+                        <a href="about.html" class="btn btn-mondrian-blue" style="text-decoration: none; display: inline-block;">
+                            了解更多
+                        </a>
+                    </div>
+                </div>
+                <div class="mondrian-gallery">
+                    <div class="gallery-item gallery-item-1">
+                        <img src="images/33ee133ff20710c5ecb47eb8611820ef.jpg" alt="艺术猫1" class="gallery-img">
+                    </div>
+                    <div class="gallery-item gallery-item-2">
+                        <img src="images/99ebce5455690b42ee2121512e47ee75.jpg" alt="艺术猫2" class="gallery-img">
+                    </div>
+                    <div class="gallery-item gallery-item-3">
+                        <img src="images/9cef40dd65c87e5114b565db7adad1ac.jpg" alt="艺术猫3" class="gallery-img">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cards Section -->
+    <section class="section" id="features">
+        <div style="text-align: center;">
+            <h2 class="section-title">WHY CHOOSE US</h2>
+        </div>
+        <p class="section-subtitle">现代艺术与猫咪的完美融合</p>
+        <div class="cards-grid">
+                <div class="card">
+                    <div class="card-icon">
+                        <img src="images/f101753cf27858414da21c929abd5c2c.png" alt="Art Cat" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <h3 class="card-title">ART DESIGN</h3>
+                    <p class="card-text">每一个细节都充满艺术气息，几何色彩的完美平衡！</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">
+                        <img src="images/cute-white-cat.jpg" alt="Lightning Cat" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <h3 class="card-title">FAST SPEED</h3>
+                    <p class="card-text">闪电般的响应速度，简洁高效的设计理念！</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">
+                        <img src="images/orange-cat.jpg" alt="Love Cat" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <h3 class="card-title">LOVE & CARE</h3>
+                    <p class="card-text">用心对待每一位访客，带来纯粹的艺术体验！</p>
+                </div>
+            </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="section" id="gallery">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <div style="text-align: center;">
+                <h2 class="section-title">GALLERY</h2>
+            </div>
+            <p class="section-subtitle">Art meets cuteness</p>
+            <div class="gallery-grid">
+                <div class="gallery-item" style="aspect-ratio: 3/4; border: 4px solid var(--mondrian-black); box-shadow: 6px 6px 0 var(--mondrian-black);" onclick="openModal('images/orange-cat.jpg')">
+                    <img src="images/orange-cat.jpg" alt="Cute Orange Cat">
+                    <div class="gallery-overlay" style="background: rgba(244, 208, 63, 0.95);">
+                        <span class="gallery-text" style="color: var(--mondrian-black); font-weight: 900;">🐱 ORANGE CAT</span>
+                    </div>
+                </div>
+                <div class="gallery-item" style="aspect-ratio: 3/4; border: 4px solid var(--mondrian-black); box-shadow: 6px 6px 0 var(--mondrian-black);" onclick="openModal('images/cute-white-cat.jpg')">
+                    <img src="images/cute-white-cat.jpg" alt="Cute White Cat">
+                    <div class="gallery-overlay" style="background: rgba(230, 57, 70, 0.95);">
+                        <span class="gallery-text" style="color: var(--mondrian-white); font-weight: 900;">😲 SURPRISED CAT</span>
+                    </div>
+                </div>
+                <div class="gallery-item" style="aspect-ratio: 3/4; border: 4px solid var(--mondrian-black); box-shadow: 6px 6px 0 var(--mondrian-black);" onclick="openModal('images/cat-fries.jpg')">
+                    <img src="images/cat-fries.jpg" alt="Cat with Fries">
+                    <div class="gallery-overlay" style="background: rgba(29, 53, 87, 0.95);">
+                        <span class="gallery-text" style="color: var(--mondrian-white); font-weight: 900;">🍟 FRIES CAT</span>
+                    </div>
+                </div>
+                <div class="gallery-item" style="border: 4px solid var(--mondrian-black); box-shadow: 6px 6px 0 var(--mondrian-black);" onclick="openModal('images/funny-cat.jpg')">
+                    <img src="images/funny-cat.jpg" alt="Funny Cat">
+                    <div class="gallery-overlay" style="background: rgba(230, 57, 70, 0.95);">
+                        <span class="gallery-text" style="color: var(--mondrian-white); font-weight: 900;">😸 FUNNY CAT</span>
+                    </div>
+                </div>
+                <div class="gallery-item" style="border: 4px solid var(--mondrian-black); box-shadow: 6px 6px 0 var(--mondrian-black);" onclick="openModal('https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=800&q=80')">
+                    <img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=400&q=80" alt="Cute">
+                    <div class="gallery-overlay" style="background: rgba(230, 57, 70, 0.95);">
+                        <span class="gallery-text" style="color: var(--mondrian-white); font-weight: 900;">🐶 DOG</span>
+                    </div>
+                </div>
+                <div class="gallery-item" style="border: 4px solid var(--mondrian-black); box-shadow: 6px 6px 0 var(--mondrian-black);" onclick="openModal('images/explosion-cat.jpg')">
+                    <img src="images/explosion-cat.jpg" alt="Explosion Cat">
+                    <div class="gallery-overlay" style="background: rgba(29, 53, 87, 0.95);">
+                        <span class="gallery-text" style="color: var(--mondrian-white); font-weight: 900;">💥 EXPLOSION CAT</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features List -->
+    <section class="section">
+        <div style="text-align: center;">
+            <h2 class="section-title">FEATURES</h2>
+        </div>
+        <p class="section-subtitle">Everything is awesome</p>
+        <div class="features-list">
+            <div class="feature-item">
+                <span class="feature-emoji">🌸</span>
+                <div class="feature-content">
+                    <h4 class="feature-title">Cherry Blossom</h4>
+                    <p class="feature-text">Every design as beautiful as spring cherry blossoms!</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <span class="feature-emoji">🍬</span>
+                <div class="feature-content">
+                    <h4 class="feature-title">Sweet Candy</h4>
+                    <p class="feature-text">Sweet color palette that tastes like candy!</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <span class="feature-emoji">🌈</span>
+                <div class="feature-content">
+                    <h4 class="feature-title">Rainbow Colors</h4>
+                    <p class="feature-text">Colorful choices, there's something for everyone!</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <span class="feature-emoji">💫</span>
+                <div class="feature-content">
+                    <h4 class="feature-title">Sparkling Stars</h4>
+                    <p class="feature-text">Every detail shines brightly, you can't look away!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Special Orange Cat Section -->
+    <section class="section">
+        <div style="text-align: center; max-width: 900px; margin: 0 auto;">
+            <div style="text-align: center;">
+                <h2 class="section-title">CAT STARS</h2>
+            </div>
+            <p class="section-subtitle">Our adorable cat celebrities</p>
+            
+            <div style="display: flex; justify-content: center; margin: 40px 0;">
+                <div style="padding: 0; display: inline-block;">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 32px; max-width: 700px;">
+                        <div style="text-align: center; background: var(--mondrian-yellow); padding: 32px; border: 5px solid var(--mondrian-black); box-shadow: 8px 8px 0 var(--mondrian-black); transition: all 0.4s ease;">
+                            <div style="font-size: 70px; margin-bottom: 16px;">🧡</div>
+                            <h4 style="color: var(--mondrian-black); font-size: 22px; font-weight: 900; font-family: 'Poppins', sans-serif; text-transform: uppercase; letter-spacing: 1px;">ORANGE</h4>
+                            <p style="color: var(--mondrian-black); font-size: 15px; margin-top: 8px; font-weight: 600;">Super Cute</p>
+                        </div>
+                        <div style="text-align: center; background: var(--mondrian-red); padding: 32px; border: 5px solid var(--mondrian-black); box-shadow: 8px 8px 0 var(--mondrian-black); transition: all 0.4s ease;">
+                            <div style="font-size: 70px; margin-bottom: 16px;">🐾</div>
+                            <h4 style="color: var(--mondrian-black); font-size: 22px; font-weight: 900; font-family: 'Poppins', sans-serif; text-transform: uppercase; letter-spacing: 1px;">SLEEPY</h4>
+                            <p style="color: var(--mondrian-black); font-size: 15px; margin-top: 8px; font-weight: 600;">Anytime Anywhere</p>
+                        </div>
+                        <div style="text-align: center; background: var(--mondrian-blue); padding: 32px; border: 5px solid var(--mondrian-black); box-shadow: 8px 8px 0 var(--mondrian-black); transition: all 0.4s ease;">
+                            <div style="font-size: 70px; margin-bottom: 16px;">🎀</div>
+                            <h4 style="color: var(--mondrian-white); font-size: 22px; font-weight: 900; font-family: 'Poppins', sans-serif; text-transform: uppercase; letter-spacing: 1px;">CUDDLY</h4>
+                            <p style="color: var(--mondrian-white); font-size: 15px; margin-top: 8px; font-weight: 600;">Need Hugs</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <p style="color: var(--mondrian-black); font-size: 18px; line-height: 1.8; margin-bottom: 32px; font-weight: 600; background: var(--mondrian-white); padding: 16px 24px; border: 4px solid var(--mondrian-black); box-shadow: 6px 6px 0 var(--mondrian-yellow); display: inline-block;">
+                With cats around, every day becomes super healing!
+            </p>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number">10K+</div>
+                <div class="stat-label">Happy Users</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Satisfaction</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">Cat Companions</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">∞</div>
+                <div class="stat-label">Cuteness Level</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="footer-content">
+            <div class="footer-logo">🐱 CAT PLANET 🐱</div>
+            <p class="footer-text">
+                Thank you for visiting Cat Planet! Hope you have a wonderful time with our adorable cats, stay happy every day! 🐾
+            </p>
+            <div class="social-links">
+                <div class="social-link" onclick="showAlert('Follow our Twitter!')">🐦</div>
+                <div class="social-link" onclick="showAlert('Check our photos!')">📸</div>
+                <div class="social-link" onclick="showAlert('Let's play together!')">🎮</div>
+                <div class="social-link" onclick="showAlert('Come chat with us!')">💬</div>
+            </div>
+            <div class="footer-bottom">
+                <p>🎨 Made with art and love 🎨</p>
+                <p style="margin-top: 12px;">© 2024 Cat Planet. Keep being creative!</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showAlert(message) {
+            const cuties = ['🎉', '✨', '💖', '🌸', '🎀', '🌟', '💫'];
+            const random = cuties[Math.floor(Math.random() * cuties.length)];
+            alert(random + ' ' + message);
+        }
+
+        // Active nav link
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                navLinks.forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Add confetti on click
+        document.addEventListener('click', function(e) {
+            if (Math.random() > 0.7) {
+                createSparkle(e.pageX, e.pageY);
+            }
+        });
+
+        function createSparkle(x, y) {
+            const sparkles = ['✨', '⭐', '💫', '🌟', '✨'];
+            const sparkle = document.createElement('div');
+            sparkle.textContent = sparkles[Math.floor(Math.random() * sparkles.length)];
+            sparkle.style.cssText = `
+                position: fixed;
+                left: ${x}px;
+                top: ${y}px;
+                font-size: 24px;
+                pointer-events: none;
+                z-index: 9999;
+                animation: sparkle 1s ease-out forwards;
+            `;
+            document.body.appendChild(sparkle);
+
+            if (!document.getElementById('sparkle-style')) {
+                const style = document.createElement('style');
+                style.id = 'sparkle-style';
+                style.textContent = `
+                    @keyframes sparkle {
+                        0% { opacity: 1; transform: translateY(0) scale(1) rotate(0deg); }
+                        100% { opacity: 0; transform: translateY(-60px) scale(1.5) rotate(180deg); }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+
+            setTimeout(() => sparkle.remove(), 1000);
+        }
+
+        console.log('🌸 Welcome to Kawaii World! 🌸');
+        console.log('💖 Have a cute day! 💖');
+    </script>
+
+    <!-- Image Modal -->
+    <div id="image-modal" class="image-modal" onclick="closeModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal()">✕ 关闭</button>
+            <img id="modal-image" src="" alt="Large Image">
+        </div>
+    </div>
+
+    <style>
+        .image-modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            cursor: pointer;
+        }
+        .modal-content {
+            position: relative;
+            margin: auto;
+            max-width: 90%;
+            max-height: 90%;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--mondrian-white);
+            border: 6px solid var(--mondrian-black);
+            box-shadow: 8px 8px 0 var(--mondrian-black);
+            padding: 20px;
+        }
+        .modal-close {
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            background: var(--mondrian-red);
+            color: white;
+            border: 4px solid var(--mondrian-black);
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: 900;
+            font-family: 'Poppins', sans-serif;
+            box-shadow: 4px 4px 0 var(--mondrian-black);
+            transition: all 0.2s ease;
+            z-index: 2001;
+        }
+        .modal-close:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0 var(--mondrian-black);
+        }
+        #modal-image {
+            max-width: 100%;
+            max-height: 80vh;
+            display: block;
+            margin: 0 auto;
+        }
+        .gallery-item {
+            cursor: pointer;
+        }
+    </style>
+
+    <script>
+        function openModal(imageSrc) {
+            const modal = document.getElementById('image-modal');
+            const modalImage = document.getElementById('modal-image');
+            modal.style.display = 'block';
+            modalImage.src = imageSrc;
+        }
+        function closeModal() {
+            const modal = document.getElementById('image-modal');
+            modal.style.display = 'none';
+        }
+    </script>
+</body>
+</html>

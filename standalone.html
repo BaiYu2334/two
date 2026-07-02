@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Velorah</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        background: 'hsl(201 100% 13%)',
+                        foreground: 'hsl(0 0% 100%)',
+                        'muted-foreground': 'hsl(240 4% 66%)',
+                        primary: 'hsl(0 0% 100%)',
+                        'primary-foreground': 'hsl(0 0% 4%)',
+                        secondary: 'hsl(0 0% 10%)',
+                        muted: 'hsl(0 0% 10%)',
+                        accent: 'hsl(0 0% 10%)',
+                        border: 'hsl(0 0% 18%)',
+                        input: 'hsl(0 0% 18%)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer base {
+            :root {
+                --font-display: 'Instrument Serif', serif;
+                --font-body: 'Inter', sans-serif;
+            }
+            
+            body {
+                font-family: var(--font-body);
+                background-color: hsl(201 100% 13%);
+                color: hsl(0 0% 100%);
+            }
+        }
+
+        @layer utilities {
+            .liquid-glass {
+                background: rgba(255, 255, 255, 0.01);
+                background-blend-mode: luminosity;
+                backdrop-filter: blur(4px);
+                -webkit-backdrop-filter: blur(4px);
+                border: none;
+                box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+                position: relative;
+                overflow: hidden;
+            }
+            
+            .liquid-glass::before {
+                content: '';
+                position: absolute;
+                inset: 0;
+                border-radius: inherit;
+                padding: 1.4px;
+                background: linear-gradient(180deg,
+                    rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.15) 20%,
+                    rgba(255,255,255,0) 40%, rgba(255,255,255,0) 60%,
+                    rgba(255,255,255,0.15) 80%, rgba(255,255,255,0.45) 100%);
+                -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                -webkit-mask-composite: xor;
+                mask-composite: exclude;
+                pointer-events: none;
+            }
+            
+            @keyframes fade-rise {
+                from { opacity: 0; transform: translateY(24px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            
+            .animate-fade-rise { animation: fade-rise 0.8s ease-out both; }
+            .animate-fade-rise-delay { animation: fade-rise 0.8s ease-out 0.2s both; }
+            .animate-fade-rise-delay-2 { animation: fade-rise 0.8s ease-out 0.4s both; }
+        }
+    </style>
+</head>
+<body>
+    <div class="relative min-h-screen w-full overflow-hidden">
+        <video
+            class="absolute inset-0 w-full h-full object-cover z-0"
+            autoplay
+            loop
+            muted
+            playsinline
+            src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260314_131748_f2ca2a28-fed7-44c8-b9a9-bd9acdd5ec31.mp4"
+        ></video>
+
+        <nav class="relative z-10 flex flex-row justify-between px-8 py-6 max-w-7xl mx-auto">
+            <div class="text-3xl tracking-tight text-white" style="font-family: 'Instrument Serif', serif;">
+                Velorah<sup class="text-xs">?</sup>
+            </div>
+
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#" class="text-sm text-white transition-colors">Home</a>
+                <a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">Studio</a>
+                <a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">About</a>
+                <a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">Journal</a>
+                <a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">Reach Us</a>
+            </div>
+
+            <button class="liquid-glass rounded-full px-6 py-2.5 text-sm text-white hover:scale-[1.03] transition-transform">
+                Begin Journey
+            </button>
+        </nav>
+
+        <section class="relative z-10 flex flex-col items-center justify-center text-center px-6 pt-32 pb-40 py-[90px]">
+            <h1 class="text-5xl sm:text-7xl md:text-8xl leading-[0.95] tracking-[-2.46px] max-w-7xl font-normal animate-fade-rise" style="font-family: 'Instrument Serif', serif;">
+                Where <em class="not-italic text-gray-400">dreams</em> rise <em class="not-italic text-gray-400">through the silence.</em>
+            </h1>
+
+            <p class="text-gray-400 text-base sm:text-lg max-w-2xl mt-8 leading-relaxed animate-fade-rise-delay">
+                We're designing tools for deep thinkers, bold creators, and quiet rebels. Amid the chaos, we build digital spaces for sharp focus and inspired work.
+            </p>
+
+            <button class="liquid-glass rounded-full px-14 py-5 text-base text-white mt-12 hover:scale-[1.03] transition-transform cursor-pointer animate-fade-rise-delay-2">
+                Begin Journey
+            </button>
+        </section>
+    </div>
+</body>
+</html>

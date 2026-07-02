@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAT PLANET - 关于我们</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;900&family=Fredoka:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --mondrian-red: #E63946;
+            --mondrian-yellow: #F4D03F;
+            --mondrian-blue: #1D3557;
+            --mondrian-white: #FFFFFF;
+            --mondrian-black: #000000;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', 'Fredoka', sans-serif;
+            background: var(--mondrian-white);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--mondrian-yellow);
+            border-bottom: 6px solid var(--mondrian-black);
+            padding: 16px 32px;
+            box-shadow: 0 8px 0 var(--mondrian-black);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            background: var(--mondrian-white);
+            padding: 8px 20px;
+            border: 5px solid var(--mondrian-black);
+            box-shadow: 4px 4px 0 var(--mondrian-black);
+        }
+
+        .logo:hover { transform: scale(1.05) rotate(-2deg); }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--mondrian-yellow);
+            border: 4px solid var(--mondrian-black);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 3px 3px 0 var(--mondrian-black);
+        }
+
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        nav {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-link {
+            padding: 10px 24px;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--mondrian-black);
+            text-decoration: none;
+            border: 4px solid var(--mondrian-black);
+            background: var(--mondrian-white);
+            transition: all 0.3s ease;
+            box-shadow: 3px 3px 0 var(--mondrian-black);
+        }
+
+        .nav-link:hover {
+            background: var(--mondrian-yellow);
+            transform: translate(-3px, -3px);
+            box-shadow: 6px 6px 0 var(--mondrian-black);
+        }
+
+        .nav-link.active {
+            background: var(--mondrian-red);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 32px;
+            position: relative;
+            background-image: url('images/f101753cf27858414da21c929abd5c2c.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.92);
+            z-index: 0;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .mondrian-text {
+            padding: 40px;
+            background: white;
+            border: 6px solid var(--mondrian-black);
+            position: relative;
+        }
+
+        .mondrian-text::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: -6px;
+            width: 60px;
+            height: 60px;
+            background: var(--mondrian-red);
+            border: 6px solid var(--mondrian-black);
+        }
+
+        .mondrian-text::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            right: -6px;
+            width: 80px;
+            height: 80px;
+            background: var(--mondrian-blue);
+            border: 6px solid var(--mondrian-black);
+        }
+
+        .hero-tagline {
+            display: inline-block;
+            background: var(--mondrian-yellow);
+            color: var(--mondrian-black);
+            padding: 8px 24px;
+            font-weight: 900;
+            font-size: 18px;
+            border: 4px solid var(--mondrian-black);
+            margin-bottom: 20px;
+            transform: rotate(-2deg);
+        }
+
+        .hero-title {
+            font-size: clamp(36px, 6vw, 64px);
+            font-weight: 900;
+            color: var(--mondrian-black);
+            margin-bottom: 20px;
+            line-height: 1.1;
+        }
+
+        .title-line {
+            display: block;
+        }
+
+        .title-line-1 {
+            background: var(--mondrian-yellow);
+            padding: 4px 16px;
+            display: inline-block;
+            transform: rotate(1deg);
+            border: 4px solid var(--mondrian-black);
+            animation: float-shake-1 2s ease-in-out infinite;
+            animation-delay: 0s;
+        }
+
+        .title-line-2 {
+            background: var(--mondrian-red);
+            color: white;
+            padding: 4px 16px;
+            display: inline-block;
+            transform: rotate(-1deg);
+            border: 4px solid var(--mondrian-black);
+            margin-left: 40px;
+            animation: float-shake-2 2s ease-in-out infinite;
+            animation-delay: 0.3s;
+        }
+
+        .title-line-3 {
+            background: var(--mondrian-blue);
+            color: white;
+            padding: 4px 16px;
+            display: inline-block;
+            transform: rotate(2deg);
+            border: 4px solid var(--mondrian-black);
+            animation: float-shake-3 2s ease-in-out infinite;
+            animation-delay: 0.6s;
+        }
+
+        @keyframes float-shake-1 {
+            0%, 100% {
+                transform: translateY(0px) rotate(1deg);
+            }
+            25% {
+                transform: translateY(-5px) rotate(1.5deg);
+            }
+            50% {
+                transform: translateY(0px) rotate(1deg);
+            }
+            75% {
+                transform: translateY(5px) rotate(0.5deg);
+            }
+        }
+
+        @keyframes float-shake-2 {
+            0%, 100% {
+                transform: translateY(0px) rotate(-1deg);
+            }
+            25% {
+                transform: translateY(-5px) rotate(-0.5deg);
+            }
+            50% {
+                transform: translateY(0px) rotate(-1deg);
+            }
+            75% {
+                transform: translateY(5px) rotate(-1.5deg);
+            }
+        }
+
+        @keyframes float-shake-3 {
+            0%, 100% {
+                transform: translateY(0px) rotate(2deg);
+            }
+            25% {
+                transform: translateY(-5px) rotate(2.5deg);
+            }
+            50% {
+                transform: translateY(0px) rotate(2deg);
+            }
+            75% {
+                transform: translateY(5px) rotate(1.5deg);
+            }
+        }
+
+        .hero-subtitle-large {
+            font-size: clamp(24px, 3vw, 36px);
+            font-weight: 700;
+            color: var(--mondrian-black);
+            margin-bottom: 16px;
+            padding-left: 20px;
+            border-left: 6px solid var(--mondrian-red);
+        }
+
+        .hero-subtitle {
+            font-size: clamp(16px, 2vw, 20px);
+            color: var(--mondrian-black);
+            font-weight: 500;
+            margin-bottom: 40px;
+            line-height: 1.8;
+            background: var(--mondrian-yellow);
+            padding: 16px 20px;
+            border: 4px solid var(--mondrian-black);
+        }
+
+        .back-btn {
+            display: inline-block;
+            padding: 16px 40px;
+            font-size: 18px;
+            font-weight: 900;
+            background: var(--mondrian-blue);
+            color: white;
+            border: 5px solid var(--mondrian-black);
+            cursor: pointer;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.2s ease;
+        }
+
+        .back-btn:hover {
+            transform: translate(-4px, -4px);
+            box-shadow: 8px 8px 0 var(--mondrian-black);
+        }
+
+        /* Content Section */
+        .content-section {
+            padding: 80px 32px;
+            position: relative;
+            background-image: url('images/f101753cf27858414da21c929abd5c2c.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .content-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.92);
+            z-index: 0;
+        }
+
+        .content-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 900;
+            text-align: center;
+            color: var(--mondrian-black);
+            margin-bottom: 16px;
+            display: inline-block;
+            background: var(--mondrian-yellow);
+            padding: 8px 24px;
+            border: 5px solid var(--mondrian-black);
+            transform: rotate(-1deg);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--mondrian-black);
+            font-size: 18px;
+            margin-bottom: 48px;
+            font-weight: 600;
+        }
+
+        .title-wrapper {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        /* About Cards */
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+            margin-bottom: 64px;
+        }
+
+        .about-card {
+            background: white;
+            border-radius: 0;
+            padding: 32px;
+            text-align: center;
+            box-shadow: 8px 8px 0 var(--mondrian-black);
+            border: 5px solid var(--mondrian-black);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-card:nth-child(1) {
+            background: linear-gradient(135deg, var(--mondrian-white) 0%, var(--mondrian-white) 70%, var(--mondrian-yellow) 70%, var(--mondrian-yellow) 100%);
+        }
+
+        .about-card:nth-child(2) {
+            background: linear-gradient(135deg, var(--mondrian-white) 0%, var(--mondrian-white) 70%, var(--mondrian-red) 70%, var(--mondrian-red) 100%);
+        }
+
+        .about-card:nth-child(3) {
+            background: linear-gradient(135deg, var(--mondrian-white) 0%, var(--mondrian-white) 70%, var(--mondrian-blue) 70%, var(--mondrian-blue) 100%);
+        }
+
+        .about-card:hover {
+            transform: translate(-8px, -8px);
+            box-shadow: 16px 16px 0 var(--mondrian-black);
+        }
+
+        .about-icon {
+            width: 100px;
+            height: 100px;
+            background: var(--mondrian-white);
+            border-radius: 0;
+            border: 4px solid var(--mondrian-black);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            margin: 0 auto 24px;
+            box-shadow: 4px 4px 0 var(--mondrian-black);
+            transition: transform 0.3s ease;
+        }
+
+        .about-card:hover .about-icon { transform: translate(-4px, -4px) scale(1.1); }
+
+        .about-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--mondrian-black);
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+
+        .about-text {
+            color: var(--mondrian-black);
+            font-size: 16px;
+            line-height: 1.7;
+            font-weight: 500;
+        }
+
+        /* Timeline */
+        .timeline {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 100%;
+            background: var(--mondrian-black);
+        }
+
+        .timeline-item {
+            display: flex;
+            justify-content: flex-end;
+            padding-right: 50%;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(even) {
+            justify-content: flex-start;
+            padding-right: 0;
+            padding-left: 50%;
+        }
+
+        .timeline-content {
+            background: white;
+            padding: 24px;
+            border: 5px solid var(--mondrian-black);
+            box-shadow: 6px 6px 0 var(--mondrian-black);
+            max-width: 300px;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(1) .timeline-content { background: var(--mondrian-yellow); }
+        .timeline-item:nth-child(2) .timeline-content { background: var(--mondrian-red); color: white; }
+        .timeline-item:nth-child(3) .timeline-content { background: var(--mondrian-blue); color: white; }
+        .timeline-item:nth-child(4) .timeline-content { background: var(--mondrian-white); }
+
+        .timeline-dot {
+            position: absolute;
+            right: -18px;
+            top: 24px;
+            width: 30px;
+            height: 30px;
+            background: var(--mondrian-black);
+            border: 4px solid var(--mondrian-black);
+        }
+
+        .timeline-item:nth-child(even) .timeline-dot {
+            right: auto;
+            left: -18px;
+        }
+
+        .timeline-year {
+            font-size: 20px;
+            font-weight: 900;
+            margin-bottom: 8px;
+        }
+
+        .timeline-desc {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--mondrian-yellow);
+            border-top: 6px solid var(--mondrian-black);
+            padding: 48px 32px;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 800;
+            font-size: 24px;
+            background: var(--mondrian-white);
+            padding: 12px 24px;
+            border: 5px solid var(--mondrian-black);
+            box-shadow: 4px 4px 0 var(--mondrian-black);
+            margin-bottom: 24px;
+        }
+
+        .footer-text {
+            font-weight: 700;
+            color: var(--mondrian-black);
+            margin-bottom: 16px;
+        }
+
+        .footer-copyright {
+            font-size: 14px;
+            color: var(--mondrian-black);
+            opacity: 0.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            nav {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item,
+            .timeline-item:nth-child(even) {
+                padding-left: 60px;
+                padding-right: 0;
+                justify-content: flex-start;
+            }
+
+            .timeline-dot,
+            .timeline-item:nth-child(even) .timeline-dot {
+                left: 5px;
+                right: auto;
+            }
+
+            .title-line-2,
+            .title-line-3 {
+                margin-left: 0;
+                transform: none !important;
+            }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 16px; }
+        ::-webkit-scrollbar-track { background: var(--mondrian-yellow); }
+        ::-webkit-scrollbar-thumb {
+            background: var(--mondrian-blue);
+            border-radius: 0;
+            border: 4px solid var(--mondrian-black);
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--mondrian-red);
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Music -->
+    <audio loop id="bg-music">
+        <source src="background-music.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <style>
+        .music-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--mondrian-yellow);
+            border: 4px solid var(--mondrian-black);
+            padding: 12px 20px;
+            cursor: pointer;
+            font-weight: 900;
+            font-family: 'Poppins', sans-serif;
+            box-shadow: 4px 4px 0 var(--mondrian-black);
+            transition: all 0.2s ease;
+        }
+        .music-control:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0 var(--mondrian-black);
+        }
+    </style>
+    <button class="music-control" onclick="toggleMusic()">🎵 播放音乐</button>
+    <script>
+        let isPlaying = false;
+        function toggleMusic() {
+            const audio = document.getElementById('bg-music');
+            if (isPlaying) {
+                audio.pause();
+                document.querySelector('.music-control').innerHTML = '🎵 播放音乐';
+            } else {
+                audio.play();
+                document.querySelector('.music-control').innerHTML = '🎵 暂停音乐';
+            }
+            isPlaying = !isPlaying;
+        }
+    </script>
+
+    <!-- Walking Cats -->
+    <div class="walking-cat" id="walking-cat-1">
+        <span class="cat-sprite">🐱</span>
+    </div>
+    <div class="walking-cat" id="walking-cat-2">
+        <span class="cat-sprite">😺</span>
+    </div>
+
+    <style>
+        .walking-cat {
+            position: fixed;
+            z-index: 1500;
+            font-size: 60px;
+            cursor: pointer;
+            filter: drop-shadow(4px 4px 0 var(--mondrian-black));
+            transition: transform 0.1s ease;
+        }
+        .walking-cat:hover {
+            transform: scale(1.2);
+        }
+        .cat-sprite {
+            display: inline-block;
+            animation: cat-bounce 0.3s ease infinite;
+        }
+        @keyframes cat-bounce {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-8px) rotate(5deg);
+            }
+        }
+    </style>
+
+    <script>
+        function createWalkingCat(id, startX, startY, speed, emoji) {
+            const catPosition = {
+                x: startX,
+                y: startY,
+                direction: startX < 0 ? 1 : -1,
+                speed: speed,
+                baseSize: 50 + Math.random() * 30
+            };
+
+            const catElement = document.getElementById(id);
+            catElement.style.left = catPosition.x + 'px';
+            catElement.style.top = catPosition.y + 'px';
+            catElement.style.fontSize = catPosition.baseSize + 'px';
+            catElement.querySelector('.cat-sprite').textContent = emoji;
+
+            let lastTime = Date.now();
+
+            function moveCat() {
+                const now = Date.now();
+                const delta = (now - lastTime) / 16;
+                lastTime = now;
+
+                catPosition.x += catPosition.direction * catPosition.speed * delta;
+
+                if (catPosition.x > window.innerWidth + 100) {
+                    catPosition.direction = -1;
+                    catPosition.y = Math.random() * (window.innerHeight - 200) + 100;
+                } else if (catPosition.x < -100) {
+                    catPosition.direction = 1;
+                    catPosition.y = Math.random() * (window.innerHeight - 200) + 100;
+                }
+
+                catElement.style.left = catPosition.x + 'px';
+                catElement.style.top = catPosition.y + 'px';
+                catElement.style.transform = catPosition.direction === 1 ? 'scaleX(1)' : 'scaleX(-1)';
+
+                requestAnimationFrame(moveCat);
+            }
+
+            catElement.addEventListener('click', () => {
+                catPosition.speed += 0.5;
+                catElement.style.fontSize = (catPosition.baseSize + Math.random() * 20) + 'px';
+            });
+
+            moveCat();
+        }
+
+        createWalkingCat('walking-cat-1', -100, window.innerHeight - 200, 2, '🐱');
+        createWalkingCat('walking-cat-2', window.innerWidth + 100, window.innerHeight - 350, 2.5, '😺');
+    </script>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="logo" onclick="window.location.href='cute-site.html'">
+                <div class="logo-icon">
+                    <img src="images/logo-burger-cat.jpg" alt="Logo Cat">
+                </div>
+                <span style="font-weight: 900; font-family: 'Poppins', sans-serif;">CAT PLANET</span>
+            </div>
+            <nav>
+                <a href="cute-site.html" class="nav-link" style="background: var(--mondrian-white); border: 4px solid var(--mondrian-black); box-shadow: 3px 3px 0 var(--mondrian-black); font-weight: 700;">HOME</a>
+                <a href="about.html" class="nav-link active" style="background: var(--mondrian-white); border: 4px solid var(--mondrian-black); box-shadow: 3px 3px 0 var(--mondrian-black); font-weight: 700;">ABOUT</a>
+                <a href="cute-site.html#gallery" class="nav-link" style="background: var(--mondrian-white); border: 4px solid var(--mondrian-black); box-shadow: 3px 3px 0 var(--mondrian-black); font-weight: 700;">GALLERY</a>
+                <a href="cute-site.html#contact" class="nav-link" style="background: var(--mondrian-white); border: 4px solid var(--mondrian-black); box-shadow: 3px 3px 0 var(--mondrian-black); font-weight: 700;">CONTACT</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text mondrian-text">
+                <div class="hero-tagline">ABOUT CAT PLANET</div>
+                <h1 class="hero-title">
+                    <span class="title-line title-line-1">ネコについて</span>
+                    <span class="title-line title-line-2">关于猫咪</span>
+                    <span class="title-line title-line-3">OUR STORY</span>
+                </h1>
+                <div class="hero-subtitle-large">探索猫咪与艺术的奇妙旅程</div>
+                <p class="hero-subtitle">
+                    我们相信猫咪是世界上最可爱的生物，而蒙德里安艺术是最有格调的表达方式。
+                    在这里，猫咪与几何色彩完美融合，创造出独一无二的视觉体验！
+                </p>
+                <a href="cute-site.html" class="back-btn">← 返回主页</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Cards Section -->
+    <section class="content-section">
+        <div class="content-wrapper">
+            <div class="title-wrapper">
+                <h2 class="section-title">OUR VALUES</h2>
+            </div>
+            <p class="section-subtitle">我们的核心价值观</p>
+            
+            <div class="about-grid">
+                <div class="about-card">
+                    <div class="about-icon">🐱</div>
+                    <h3 class="about-title">CUTE CATS</h3>
+                    <p class="about-text">
+                        每一只猫咪都是独特的艺术品，我们用镜头捕捉它们最可爱的瞬间，
+                        用蒙德里安风格让它们成为永恒的视觉经典！
+                    </p>
+                </div>
+                <div class="about-card">
+                    <div class="about-icon">🎨</div>
+                    <h3 class="about-title">ART DESIGN</h3>
+                    <p class="about-text">
+                        蒙德里安几何美学与猫咪的完美结合，创造出既有艺术深度又充满萌点的视觉作品，
+                        让每一个细节都充满设计感！
+                    </p>
+                </div>
+                <div class="about-card">
+                    <div class="about-icon">💖</div>
+                    <h3 class="about-title">LOVE & CARE</h3>
+                    <p class="about-text">
+                        我们热爱猫咪，更热爱每一位来访的朋友。用心打造的视觉体验，
+                        带来纯粹的艺术与萌宠的双重治愈！
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="content-section">
+        <div class="content-wrapper">
+            <div class="title-wrapper">
+                <h2 class="section-title">OUR JOURNEY</h2>
+            </div>
+            <p class="section-subtitle">猫咪星球的成长历程</p>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-year">2020</div>
+                        <div class="timeline-desc">
+                            一只可爱的橘猫闯入了我们的生活，开启了猫咪星球的故事...
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-year">2021</div>
+                        <div class="timeline-desc">
+                            开始用镜头记录猫咪的日常，发现猫咪与艺术可以完美结合！
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-year">2023</div>
+                        <div class="timeline-desc">
+                            蒙德里安风格猫咪星球正式诞生！几何色彩与萌宠的完美融合！
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-year">2024</div>
+                        <div class="timeline-desc">
+                            猫咪星球继续成长，期待更多可爱的猫咪加入我们的大家庭！
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <div class="logo-icon">
+                    <img src="images/logo-burger-cat.jpg" alt="Logo Cat">
+                </div>
+                <span style="font-weight: 900; font-family: 'Poppins', sans-serif;">CAT PLANET</span>
+            </div>
+            <p class="footer-text">🖌️ 艺术与猫咪的完美融合 🐱</p>
+            <p class="footer-copyright">© 2024 CAT PLANET. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Image Modal -->
+    <div id="image-modal" class="image-modal" onclick="closeModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal()">✕ 关闭</button>
+            <img id="modal-image" src="" alt="Large Image">
+        </div>
+    </div>
+
+    <style>
+        .image-modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            cursor: pointer;
+        }
+        .modal-content {
+            position: relative;
+            margin: auto;
+            max-width: 90%;
+            max-height: 90%;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--mondrian-white);
+            border: 6px solid var(--mondrian-black);
+            box-shadow: 8px 8px 0 var(--mondrian-black);
+            padding: 20px;
+        }
+        .modal-close {
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            background: var(--mondrian-red);
+            color: white;
+            border: 4px solid var(--mondrian-black);
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: 900;
+            font-family: 'Poppins', sans-serif;
+            box-shadow: 4px 4px 0 var(--mondrian-black);
+            transition: all 0.2s ease;
+            z-index: 2001;
+        }
+        .modal-close:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0 var(--mondrian-black);
+        }
+        #modal-image {
+            max-width: 100%;
+            max-height: 80vh;
+            display: block;
+            margin: 0 auto;
+        }
+        .gallery-item {
+            cursor: pointer;
+        }
+    </style>
+
+    <script>
+        function openModal(imageSrc) {
+            const modal = document.getElementById('image-modal');
+            const modalImage = document.getElementById('modal-image');
+            modal.style.display = 'block';
+            modalImage.src = imageSrc;
+        }
+        function closeModal() {
+            const modal = document.getElementById('image-modal');
+            modal.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
